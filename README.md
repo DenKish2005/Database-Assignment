@@ -1,6 +1,6 @@
 Team members:
 
-Daniyar Kshibekov
+Daniyar Kshibekov,
 Askar Matayev
 
 # CSCI 341 Assignment 3 — Caregivers Platform
