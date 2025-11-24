@@ -5,16 +5,20 @@
 <form method="post">
   {% for f in fields %}
     <div style="margin-bottom:10px;">
-      <label>{{f}}</label><br>
+      <label>{{ f }}</label><br>
 
-      {% set val = item and getattr(item, f) or "" %}
+      {% set val = item and (item|attr(f)) or "" %}
 
       {% if f in ["date_posted","appointment_date","date_applied"] %}
-        <input type="date" name="{{f}}" value="{{val}}">
+        <input type="date" name="{{ f }}" value="{{ val }}">
       {% elif f == "appointment_time" %}
-        <input type="time" name="{{f}}" value="{{val}}">
+        <input type="time" name="{{ f }}" value="{{ val }}">
       {% else %}
-        <input name="{{f}}" value="{{val}}" {% if action=="edit" and item and (f in ["user_id","caregiver_user_id","member_user_id","job_id","appointment_id"]) %}readonly{% endif %}>
+        <input name="{{ f }}" value="{{ val }}"
+          {% if action=="edit" and item and (f in ["user_id","caregiver_user_id","member_user_id","job_id","appointment_id"]) %}
+            readonly
+          {% endif %}
+        >
       {% endif %}
     </div>
   {% endfor %}
