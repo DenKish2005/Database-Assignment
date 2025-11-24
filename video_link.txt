@@ -1,3 +1,3 @@
 Google Drive video demo link:
 Наша ссылка на видео - https://drive.google.com/drive/u/1/folders/18TBiu2fPp5sMxc5xBZu3atZu0QN9YUSk 
-Deployment Link - 
+Deployment Link through RENDER - https://database-assignment-apkd.onrender.com
