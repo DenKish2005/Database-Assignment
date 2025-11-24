@@ -1,7 +1,3 @@
--- Part 1: Create tables according to the given schema
--- DBMS: PostgreSQL
--- If you already created tables, running again is safe because of IF NOT EXISTS.
-
 CREATE TABLE IF NOT EXISTS "user" (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,

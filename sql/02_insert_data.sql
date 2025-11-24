@@ -1,6 +1,3 @@
--- Part 1: Insert at least 10 rows per table
--- Users 1-10 = caregivers, Users 11-20 = members
-
 INSERT INTO "user"(email, given_name, surname, city, phone_number, profile_description, password) VALUES
 ('arman1@mail.com','Arman','Armanov','Almaty','+77001110001','Experienced babysitter','pass1'),
 ('aigerim2@mail.com','Aigerim','Nurzhanova','Astana','+77001110002','Elderly caregiver','pass2'),
@@ -23,8 +20,8 @@ INSERT INTO "user"(email, given_name, surname, city, phone_number, profile_descr
 ('samal18@mail.com','Samal','Zhumagali','Karaganda','+77001110018','Family member','pass18'),
 ('marat19@mail.com','Marat','Yesenov','Astana','+77001110019','Family member','pass19'),
 ('aidana20@mail.com','Aidana','Tursyn','Almaty','+77001110020','Family member','pass20');
-
--- Caregivers (10 rows)
+         
+-- -caregivers        
 INSERT INTO caregiver(caregiver_user_id, photo, gender, caregiving_type, hourly_rate) VALUES
 (1,'photo1.jpg','Male','Babysitter',8.50),
 (2,'photo2.jpg','Female','Elderly Care',12.00),
@@ -36,8 +33,8 @@ INSERT INTO caregiver(caregiver_user_id, photo, gender, caregiving_type, hourly_
 (8,'photo8.jpg','Female','Babysitter',6.50),
 (9,'photo9.jpg','Male','Elderly Care',9.50),
 (10,'photo10.jpg','Female','Babysitter',13.00);
-
--- Members (10 rows)
+             
+-- -members 
 INSERT INTO member(member_user_id, house_rules, dependent_description) VALUES
 (11,'No pets. Please be quiet after 9pm.','My grandmother needs elderly care.'),
 (12,'No pets. Keep shoes outside.','My father needs help walking.'),
@@ -49,8 +46,8 @@ INSERT INTO member(member_user_id, house_rules, dependent_description) VALUES
 (18,'No smoking.','3-year-old toddler.'),
 (19,'No pets. Keep kitchen clean.','Elderly mother.'),
 (20,'No loud music.','Child who likes painting.');
-
--- Address (10 rows)
+         
+-- -Addres-
 INSERT INTO address(member_user_id, house_number, street, town) VALUES
 (11,'10','Tauelsizdik','Astana'),
 (12,'25','Kabanbay Batyr','Astana'),
@@ -63,7 +60,7 @@ INSERT INTO address(member_user_id, house_number, street, town) VALUES
 (19,'88','Turan','Astana'),
 (20,'3','Al-Farabi','Almaty');
 
--- Jobs (>=10 rows)
+-- -Jоbs    
 INSERT INTO job(member_user_id, required_caregiving_type, other_requirements, date_posted) VALUES
 (11,'Elderly Care','No pets. soft-spoken caregiver preferred.','2025-10-01'),
 (12,'Elderly Care','soft-spoken, experience with walkers.','2025-10-05'),
@@ -77,8 +74,8 @@ INSERT INTO job(member_user_id, required_caregiving_type, other_requirements, da
 (20,'Babysitter','likes outdoor activities.','2025-10-20'),
 (11,'Babysitter','short-term help, soft-spoken.','2025-10-22'),
 (14,'Playmate','English speaking preferred.','2025-10-25');
-
--- Job applications (>=10 rows)
+            
+-- -Job applications       
 INSERT INTO job_application(caregiver_user_id, job_id, date_applied) VALUES
 (1,1,'2025-10-02'),
 (2,1,'2025-10-03'),
@@ -95,7 +92,7 @@ INSERT INTO job_application(caregiver_user_id, job_id, date_applied) VALUES
 (7,12,'2025-10-26'),
 (8,11,'2025-10-23');
 
--- Appointments (>=10 rows)
+-- -Appointments   
 INSERT INTO appointment(caregiver_user_id, member_user_id, appointment_date, appointment_time, work_hours, status) VALUES
 (1,14,'2025-10-12','10:00',3,'Accepted'),
 (4,18,'2025-10-17','09:00',4,'Accepted'),
