@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, text
 
-# =========================================
 
 DB_USER = "postgres"
 DB_PASSWORD = "Gumballdarwin1385"
@@ -31,30 +30,30 @@ def run(sql: str, title: str = None, fetch: bool = True):
 
 
 def create_tables():
-    print("\n[1] Creating tables...")
+    print("\n[1] creating tables...")       
     create_sql = open("../sql/01_create_tables.sql", "r", encoding="utf-8").read()
     with engine.begin() as conn:
         conn.execute(text(create_sql))
-    print("Tables are ready.")
+    print("DONE")      
 
 
 def seed_data_if_empty():
-    print("\n[2] Inserting data if database is empty...")
+    print("\n[2] Inserting data if emmpty")
     count_users = run('SELECT COUNT(*) FROM "user";', fetch=True)[0][0]
     if count_users == 0:
         insert_sql = open("../sql/02_insert_data.sql", "r", encoding="utf-8").read()
         with engine.begin() as conn:
             conn.execute(text(insert_sql))
-        print("Seed data inserted.")
+        print("DONE")        
     else:
-        print("Database already has data. Skipping seed.")
+        print("Already has it!!! Skipping seed.")
 
 
-def part2_queries():
-    # 3. UPDATE
+def part2_queries():    
+
     run("""
-        UPDATE "user"
-        SET phone_number = '+77773414141'
+        UPDATE "user"   
+        SET phone_number = '+77773414141'   
         WHERE given_name = 'Arman' AND surname = 'Armanov';
     """, title="[3.1] Update phone number of Arman Armanov", fetch=False)
 
@@ -64,24 +63,24 @@ def part2_queries():
         WHERE given_name='Arman' AND surname='Armanov';
     """, title="Check Arman phone after update")
 
-    run("""
+    run(""" 
         UPDATE caregiver
-        SET hourly_rate =
+        SET hourly_rate =   
             CASE
                 WHEN hourly_rate < 10 THEN hourly_rate + 0.3
                 ELSE hourly_rate * 1.10
-            END;
+            END;        
     """, title="[3.2] Add commission fee to caregiver hourly rates", fetch=False)
 
-    run("""
+    run(""" 
         SELECT caregiver_user_id, caregiving_type, hourly_rate
-        FROM caregiver
-        ORDER BY caregiver_user_id;
+        FROM caregiver      
+        ORDER BY caregiver_user_id;                 
     """, title="Check caregiver rates after commission")
 
-    # 4. DELETE
+
     run("""
-        DELETE FROM job
+        DELETE FROM job     
         WHERE member_user_id IN (
             SELECT u.user_id
             FROM "user" u
@@ -98,7 +97,6 @@ def part2_queries():
         );
     """, title="[4.2] Delete all members who live on Kabanbay Batyr street", fetch=False)
 
-    # 5. SIMPLE QUERIES
     run("""
         SELECT cu.given_name || ' ' || cu.surname AS caregiver_name,
                mu.given_name || ' ' || mu.surname AS member_name
@@ -133,7 +131,6 @@ def part2_queries():
           AND m.house_rules ILIKE '%No pets.%';
     """, title="[5.4] Members looking for Elderly Care in Astana with 'No pets.'")
 
-    # 6. COMPLEX QUERIES
     run("""
         SELECT j.job_id, mu.given_name || ' ' || mu.surname AS member_name,
                COUNT(ja.caregiver_user_id) AS applicant_count
@@ -186,27 +183,25 @@ def part2_queries():
         );
     """, title="[6.4] Caregivers who earn above average (accepted appointments)")
 
-    # 7. DERIVED ATTRIBUTE
     run("""
         SELECT a.appointment_id,
                cu.given_name || ' ' || cu.surname AS caregiver_name,
                mu.given_name || ' ' || mu.surname AS member_name,
                a.work_hours,
-               c.hourly_rate,
+               c.hourly_rate,   
                (a.work_hours * c.hourly_rate) AS total_cost
-        FROM appointment a
+        FROM appointment a  
         JOIN caregiver c ON a.caregiver_user_id=c.caregiver_user_id
         JOIN member m ON a.member_user_id=m.member_user_id
         JOIN "user" cu ON cu.user_id=c.caregiver_user_id
         JOIN "user" mu ON mu.user_id=m.member_user_id
-        WHERE a.status='Accepted'
+        WHERE a.status='Accepted'   
         ORDER BY a.appointment_id;
     """, title="[7] Total cost for all accepted appointments")
 
-    # 8. VIEW
-    run("""
+    run("""     
         CREATE OR REPLACE VIEW job_applications_view AS
-        SELECT j.job_id,
+        SELECT j.job_id,        
                j.required_caregiving_type,
                mu.given_name || ' ' || mu.surname AS member_name,
                cu.given_name || ' ' || cu.surname AS caregiver_name,
@@ -215,23 +210,23 @@ def part2_queries():
         FROM job_application ja
         JOIN job j ON ja.job_id=j.job_id
         JOIN caregiver c ON ja.caregiver_user_id=c.caregiver_user_id
-        JOIN member m ON j.member_user_id=m.member_user_id
+        JOIN member m ON j.member_user_id=m.member_user_id          
         JOIN "user" cu ON cu.user_id=c.caregiver_user_id
         JOIN "user" mu ON mu.user_id=m.member_user_id;
     """, title="[8] Create VIEW job_applications_view", fetch=False)
 
     run("""
-        SELECT *
+        SELECT *        
         FROM job_applications_view
         ORDER BY job_id, caregiver_name;
     """, title="Select from VIEW job_applications_view")
 
 
 def main():
-    create_tables()
+    create_tables() 
     seed_data_if_empty()
-    part2_queries()
+    part2_queries() 
 
 
 if __name__ == "__main__":
-    main()
+    main()  
