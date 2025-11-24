@@ -5,7 +5,7 @@ from models import db, User, Caregiver, Member, Address, Job, JobApplication, Ap
 app = Flask(__name__)
 
 # ==== CONFIG (поменяй плиз потом пароль/имя БД под нас) ====
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:YOUR_PASSWORD@localhost:5432/care_platform_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:Gumballdarwin1385@localhost:5432/care_platform_db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)

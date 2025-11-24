@@ -1,10 +1,9 @@
 from sqlalchemy import create_engine, text
 
 # =========================================
-# CONFIG - можно изменить в будущем по идее
-# =========================================
+
 DB_USER = "postgres"
-DB_PASSWORD = "YOUR_PASSWORD"
+DB_PASSWORD = "Gumballdarwin1385"
 DB_HOST = "localhost"
 DB_PORT = "5432"
 DB_NAME = "care_platform_db"
