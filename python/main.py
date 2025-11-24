@@ -1,17 +1,30 @@
+
 from sqlalchemy import create_engine, text
+import os
 
-
-DB_USER = "postgres"
-DB_PASSWORD = "Gumballdarwin1385"
-DB_HOST = "localhost"
-DB_PORT = "5432"
-DB_NAME = "care_platform_db"
-
-ENGINE_URL = (
-    f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = os.environ.get(
+    "DATABASE_URL",
+    "postgresql+psycopg2://postgres:Gumballdarwin1385@localhost:5432/care_platform_db"
 )
 
-engine = create_engine(ENGINE_URL, echo=False)
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(DATABASE_URL, echo=False)
+
+# from sqlalchemy import create_engine, text
+
+# DB_USER = "postgres"
+# DB_PASSWORD = "Gumballdarwin1385"
+# DB_HOST = "localhost"
+# DB_PORT = "5432"
+# DB_NAME = "care_platform_db"
+
+# ENGINE_URL = (
+#     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# )
+
+# engine = create_engine(ENGINE_URL, echo=False)
 
 
 def run(sql: str, title: str = None, fetch: bool = True):
