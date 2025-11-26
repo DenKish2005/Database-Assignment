@@ -148,5 +148,4 @@ def delete_job_application(caregiver_id, job_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-        
+    app.run(debug=False)
