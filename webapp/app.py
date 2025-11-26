@@ -1,14 +1,23 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, abort
 from datetime import datetime
 from models import db, User, Caregiver, Member, Address, Job, JobApplication, Appointment
           
-app = Flask(__name__)       
-                  
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:Gumballdarwin1385@localhost:5432/care_platform_db"
+app = Flask(__name__)
+
+DATABASE_URL = os.environ.get(
+    "DATABASE_URL",
+    "postgresql+psycopg2://postgres:Gumballdarwin1385@localhost:5432/care_platform_db"
+)
+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+psycopg2://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False            
             
-db.init_app(app)           
-            
+db.init_app(app)
+
 MODELS = {
     "user": (User, "user_id"),      
     "caregiver": (Caregiver, "caregiver_user_id"),    
