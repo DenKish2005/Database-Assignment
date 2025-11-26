@@ -1,3 +1,5 @@
+TRUNCATE TABLE appointment, job_application, job, address, member, caregiver, "user" RESTART IDENTITY CASCADE;
+
 INSERT INTO "user"(email, given_name, surname, city, phone_number, profile_description, password) VALUES
 ('arman1@mail.com','Arman','Armanov','Almaty','+77001110001','Experienced babysitter','pass1'),
 ('aigerim2@mail.com','Aigerim','Nurzhanova','Astana','+77001110002','Elderly caregiver','pass2'),
