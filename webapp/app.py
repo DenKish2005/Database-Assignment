@@ -1,7 +1,9 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, abort
 from datetime import datetime
+from sqlalchemy import text          # ← добавь это
 from models import db, User, Caregiver, Member, Address, Job, JobApplication, Appointment
+
           
 app = Flask(__name__)
 
@@ -18,6 +20,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
             
 db.init_app(app)
 
+# from flask import Flask, render_template, request, redirect, url_for, abort
+# from datetime import datetime
+# from models import db, User, Caregiver, Member, Address, Job, JobApplication, Appointment
+          
+# app = Flask(__name__)       
+                  
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:Gumballdarwin1385@localhost:5432/care_platform_db"
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False            
+            
+# db.init_app(app)           
+            
 MODELS = {
     "user": (User, "user_id"),      
     "caregiver": (Caregiver, "caregiver_user_id"),    
@@ -41,11 +54,22 @@ FIELDS = {
     "job_application": ["caregiver_user_id","job_id","date_applied"],
 }
 
-@app.before_request 
-def create_tables_once():       
-
+@app.before_request
+def create_tables_once():
     with app.app_context():
-        db.create_all()     
+        db.create_all()
+        if not User.query.first():
+            try:
+                insert_sql_path = os.path.join(os.path.dirname(__file__), "..", "sql", "02_insert_data.sql")
+                with open(insert_sql_path, "r", encoding="utf-8") as f:
+                    insert_sql = f.read()
+                db.session.execute(text(insert_sql))
+                db.session.commit()
+                print("Seed data inserted into Render DB")
+            except Exception as e:
+                db.session.rollback()
+                print("Error seeding data:", e)
+
 
 @app.route("/") 
 def home(): 

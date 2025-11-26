@@ -2,7 +2,7 @@
 from sqlalchemy import create_engine, text
 import os
 
-DATABASE_URL = "postgresql+psycopg2://postgres_askar_user:J6FN6irPaO3vhjMCkYtFdKz1qK1AZ90O@dpg-d4jcr7euk2gs73bi6isg-a.oregon-postgres.render.com/postgres_askar"
+DATABASE_URL = "postgresql+psycopg2://postgres_askar_user:J6FN6irPaO3vhjMCkYtFdKz1qK1AZ90O@dpg-d4jcr7euk2gs73bi6isg-a.oregon-postgres.render.com/postgres_askar?sslmode=require"
 
 engine = create_engine(DATABASE_URL, echo=False)
 # DATABASE_URL = os.environ.get(
