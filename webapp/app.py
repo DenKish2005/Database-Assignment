@@ -54,22 +54,11 @@ FIELDS = {
     "job_application": ["caregiver_user_id","job_id","date_applied"],
 }
 
-@app.before_request
-def create_tables_once():
-    with app.app_context():
-        db.create_all()
-        if not User.query.first():
-            try:
-                insert_sql_path = os.path.join(os.path.dirname(__file__), "..", "sql", "02_insert_data.sql")
-                with open(insert_sql_path, "r", encoding="utf-8") as f:
-                    insert_sql = f.read()
-                db.session.execute(text(insert_sql))
-                db.session.commit()
-                print("Seed data inserted into Render DB")
-            except Exception as e:
-                db.session.rollback()
-                print("Error seeding data:", e)
+@app.before_request 
+def create_tables_once():       
 
+    with app.app_context():
+        db.create_all()     
 
 @app.route("/") 
 def home(): 
