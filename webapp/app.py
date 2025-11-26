@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, abort
 from datetime import datetime
-from sqlalchemy import text          # ← добавь это
+from sqlalchemy import text  
 from models import db, User, Caregiver, Member, Address, Job, JobApplication, Appointment
 
           
